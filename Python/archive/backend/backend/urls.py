@@ -21,10 +21,13 @@ from jackboxonline import views
 
 router = routers.DefaultRouter()
 router.register(r'jackboxrooms', views.JackboxRoomView, 'jackboxroom')
-router.register(r'jackboxadmins', views.JackboxAdminView, 'jackboxadmin')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    # path('test/', views.test, name='test')
 ]
+
+
+

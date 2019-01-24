@@ -109,24 +109,24 @@ def get_room_response(code):
 
 
 def set_room_data():
-    # while True:
-    #     code_list = generate_room_codes(4)
-    #     for code in code_list:
-    #         get_room_response(code)
-
     while True:
         code_list = generate_room_codes(4)
-        # for code in code_list:
-        #     get_room_response(code)
-        with ThreadPoolExecutor(max_workers=64) as executor:
-            futures = [executor.submit(get_room_response, code) for code in code_list]
-            try:
-                for future in as_completed(futures):
-                    future.result()
-            except KeyboardInterrupt as e:
-                raise
-                # executor._threads.clear()
-                # thread._threads_queues.clear()
+        for code in code_list:
+            get_room_response(code)
+
+    # while True:
+    #     code_list = generate_room_codes(4)
+    #     # for code in code_list:
+    #     #     get_room_response(code)
+    #     with ThreadPoolExecutor(max_workers=10) as executor:
+    #         futures = [executor.submit(get_room_response, code) for code in code_list]
+    #         try:
+    #             for future in as_completed(futures):
+    #                 future.result()
+    #         except KeyboardInterrupt as e:
+    #             raise
+    #             # executor._threads.clear()
+    #             # thread._threads_queues.clear()
 
 #
 # def main():

@@ -10,10 +10,6 @@ from threading import Thread
 import threading
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from rest_framework.decorators import api_view, permission_classes
-
-from rest_framework import permissions
-
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 100
@@ -27,11 +23,17 @@ class JackboxRoomView(viewsets.ModelViewSet):
     queryset = JackboxRoom.objects.all()
 
 
-class JackboxAdminView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAdminUser,)
+#
+# def test(self):
+#     t = threading.Thread(target=set_room_data(), args=(), kwargs={})
+#     t.setDaemon(True)
+#     t.start()
 
-    @action(detail=True, methods=['get'], url_path='test', url_name='test')
-    def test(self, request, pk=None):
-        t = threading.Thread(target=set_room_data(), args=(), kwargs={})
-        t.setDaemon(True)
-        t.start()
+# @action(detail=True, methods=['get'], url_path='test', url_name='test')
+# def test(request, pk=None):
+#     t = threading.Thread(target=set_room_data(), args=(), kwargs={})
+#     t.setDaemon(True)
+#     t.start()
+
+# @action(detail=True, methods=['get'])
+# def online_rooms(self, request, pk=None):
