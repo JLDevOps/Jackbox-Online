@@ -1,18 +1,13 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework.decorators import action, detail_route
-
-from .serializers import JackboxRoomSerializer
-from .models import JackboxRoom
-from .jackbox_room_finder import set_room_data
-from rest_framework.pagination import PageNumberPagination
-from threading import Thread
 import threading
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from rest_framework.decorators import api_view, permission_classes
 
 from rest_framework import permissions
+from rest_framework import viewsets, filters
+from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
+
+from .jackbox_room_finder import set_room_data
+from .models import JackboxRoom
+from .serializers import JackboxRoomSerializer
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -22,9 +17,28 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class JackboxRoomView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
     pagination_class = StandardResultsSetPagination
     serializer_class = JackboxRoomSerializer
-    queryset = JackboxRoom.objects.all()
+
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter, )
+    search_fields = ('=room_code',)
+    ordering_fields = ('room_code', 'online', 'last_updated')
+    ordering = ('room_code',)
+
+    def get_queryset(self):
+        queryset = JackboxRoom.objects.all()
+
+        room = self.request.query_params.get('room_code', None)
+        if room is not None:
+            queryset = queryset.filter(room_code=room)
+
+        online_status = self.request.query_params.get('online', None)
+        if online_status is not None:
+            queryset = queryset.filter(online=online_status)
+
+        return queryset
 
 
 class JackboxAdminView(viewsets.ModelViewSet):

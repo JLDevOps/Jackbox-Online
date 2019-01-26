@@ -15,4 +15,10 @@
 2. Run the following:
 	```
 	python manage.py flush
+
 	```
+
+Postgres:
+username: postgres
+pass: normal 
+port: 5432
