@@ -14,10 +14,11 @@
 1. Go into the Python backend folder.
 2. Run the following:
 	```
-	python manage.py flush
-
+	python manage.py clear_models
 	```
 
+
+DB Information:
 Postgres:
 username: postgres
 pass: normal 

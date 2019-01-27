@@ -1,21 +1,19 @@
 import datetime
-import threading
-from itertools import product
 import logging
-import time
 import random
-from multiprocessing import Process
-from multiprocessing.pool import Pool
-from django.conf import settings
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from itertools import product
 
 import requests
-from concurrent.futures import ThreadPoolExecutor, as_completed
+
 from .models import JackboxRoom
-import string
+
 base_url = "https://blobcast.jackboxgames.com/room/"
 logger = logging.getLogger(__name__)
 max_attempts = 100
 attempts = 0
+
 
 def generate_room_codes(length):
     chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -53,30 +51,17 @@ def get_room_response(code):
                 locked = 'False'
 
             try:
-                appId = data['app_id']
+                app_id = data['appid']
             except Exception as e:
-                appId = ''
-
-            try:
-                appId = data['appid']
-            except Exception as e:
-                appId = ''
-
-
-
-
-            # room_row = str(data['roomid']) + ',' + server + ',' + data['apptag'] + ',' + data[
-            #     'appid'] + ',' + str(data['numPlayers']) + ',' + str(data['numAudience']) + ',' + data[
-            #                'joinAs'] + ',' + str(locked) + ',' + str(
-            #     datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')) + ','
-            # print(room_row)
+                app_id = ''
 
             online = 'Y'
 
             if JackboxRoom.objects.filter(room_code=str(code)).exists() is True:
                 room_data = JackboxRoom.objects.get(room_code=str(code))
+                room_data.server = str(server)
                 room_data.game_type = str(data['apptag'])
-                room_data.app_id = str(appId)
+                room_data.app_id = str(app_id)
                 room_data.player_amount = data['numPlayers']
                 room_data.audience_amount = data['numAudience']
                 room_data.join_able = str(data['joinAs'])
@@ -85,8 +70,8 @@ def get_room_response(code):
                 room_data.online = online
                 room_data.save()
             else:
-                room_data = JackboxRoom(room_code=str(code), game_type=str(data['apptag']),
-                                        app_id=str(appId), player_amount=data['numPlayers'],
+                room_data = JackboxRoom(room_code=str(code), server=str(server), game_type=str(data['apptag']),
+                                        app_id=str(app_id), player_amount=data['numPlayers'],
                                         audience_amount=data['numAudience'], join_able=str(data['joinAs']),
                                         locked=str(locked),
                                         last_updated=str(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')),
@@ -98,6 +83,7 @@ def get_room_response(code):
 
             if JackboxRoom.objects.filter(room_code=str(code)).exists() is True:
                 room_data = JackboxRoom.objects.get(room_code=str(code))
+                room_data.server = None
                 room_data.game_type = None
                 room_data.app_id = None
                 room_data.player_amount = None
@@ -108,7 +94,7 @@ def get_room_response(code):
                 room_data.online = online
                 room_data.save()
             else:
-                room_data = JackboxRoom(room_code=str(code), game_type=None,
+                room_data = JackboxRoom(room_code=str(code), server=None, game_type=None,
                                         app_id=None, player_amount=None,
                                         audience_amount=None, join_able=None,
                                         locked=None,
@@ -116,11 +102,9 @@ def get_room_response(code):
                                         online=online)
                 room_data.save()
 
-            # print('Room Not Found: ' + str(code))
-            # logger.info('Room Saved: ' + str(code))
-
     except Exception as e:
-        print("Error: " + str(e))
+        raise e
+
 
 def spawn_room_thread(letter, code_list):
     with ThreadPoolExecutor(max_workers=64) as executor:
@@ -131,7 +115,6 @@ def spawn_room_thread(letter, code_list):
                 future.result()
         except KeyboardInterrupt as e:
             raise
-
 
 
 def set_room_data():
@@ -151,229 +134,8 @@ def set_room_data():
     #         t.setDaemon(True)
     #         t.start()
 
-
-    # while True:
-    #     code_list = generate_room_codes(3)
-        # for code in code_list:
-        #     get_room_response(code)
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     a_list = ['A' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in a_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     b_list = ['B' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in b_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     c_list = ['C' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in c_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     d_list = ['D' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in d_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     e_list = ['E' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in e_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     f_list = ['F' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in f_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     g_list = ['G' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in g_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     h_list = ['H' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in h_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     i_list = ['I' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in i_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     j_list = ['J' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in j_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     k_list = ['K' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in k_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     l_list = ['L' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in l_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     m_list = ['M' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in m_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     n_list = ['N' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in n_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     o_list = ['O' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in o_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     p_list = ['P' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in p_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     q_list = ['Q' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in q_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     r_list = ['R' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in r_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     s_list = ['S' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in s_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     t_list = ['T' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in t_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     u_list = ['U' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in u_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     v_list = ['V' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in v_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     w_list = ['W' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in w_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     x_list = ['X' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in x_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     y_list = ['Y' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in y_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-        # with ThreadPoolExecutor(max_workers=3) as executor:
-        #     z_list = ['Z' + x for x in code_list]
-        #     futures = [executor.submit(get_room_response, room) for room in z_list]
-        #     try:
-        #         for future in as_completed(futures):
-        #             future.result()
-        #     except KeyboardInterrupt as e:
-        #         raise
-
-                # executor._threads.clear()
-                # thread._threads_queues.clear()
-
-
     while True:
         code_list = generate_room_codes(4)
-        for code in code_list:
-            get_room_response(code)
-
         with ThreadPoolExecutor(max_workers=64) as executor:
             futures = [executor.submit(get_room_response, code) for code in code_list]
             try:
@@ -383,15 +145,3 @@ def set_room_data():
                 raise
                 executor._threads.clear()
                 thread._threads_queues.clear()
-
-
-
-
-
-#
-# def main():
-#     set_room_data()
-#
-#
-# if __name__ == "__main__":
-#     main()

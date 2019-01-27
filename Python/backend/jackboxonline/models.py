@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 class JackboxRoom(models.Model):
     room_code = models.CharField(max_length=10, default=None)
+    server = models.CharField(max_length=100, null=True, default=None)
     game_type = models.CharField(max_length=200, null=True, default=None)
     app_id = models.CharField(max_length=200, null=True, default=None)
     player_amount = models.IntegerField(null=True, default=None)

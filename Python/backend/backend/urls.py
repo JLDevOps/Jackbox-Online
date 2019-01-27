@@ -19,12 +19,14 @@ from django.urls import path, include
 from rest_framework import routers
 from jackboxonline import views
 
+base_api_endpoint = 'api/v1/'
 router = routers.DefaultRouter()
 router.register(r'jackboxrooms', views.JackboxRoomView, 'jackboxroom')
-router.register(r'jackboxadmins', views.JackboxAdminView, 'jackboxadmin')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path(base_api_endpoint, include(router.urls)),
+    url(base_api_endpoint + 'initiate/', views.Initiate.as_view()),
+    # url(base_api_endpoint + 'game/', views.JackboxGame.as_view()),
 ]
