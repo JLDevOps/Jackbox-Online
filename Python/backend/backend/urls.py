@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework import routers
 from jackboxonline import views
 
@@ -27,6 +27,9 @@ router.register(r'jackboxrooms', views.JackboxRoomView, 'jackboxroom')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(base_api_endpoint, include(router.urls)),
+    # re_path(r'api/v1/jackboxrooms/check/(^[A-Za-z]{4})', views.check_room, name='check-room'),
     url(base_api_endpoint + 'initiate/', views.Initiate.as_view()),
+    # url(base_api_endpoint + 'check/^[A-Za-z]{4}', views.check_room),
+
     # url(base_api_endpoint + 'game/', views.JackboxGame.as_view()),
 ]
