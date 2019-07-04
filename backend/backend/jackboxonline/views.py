@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.renderers import JSONRenderer
 
 from .jackbox_room_finder import set_room_data
 from .models import JackboxRoom
@@ -50,6 +51,7 @@ class JackboxRoomView(viewsets.ReadOnlyModelViewSet):
 
 
 class Initiate(APIView):
+    renderer_classes = (JSONRenderer, )
     permission_classes = (permissions.IsAdminUser,)
 
     def get(self, request, format=None):

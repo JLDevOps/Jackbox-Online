@@ -118,10 +118,10 @@ def spawn_room_thread(letter, code_list):
 
 
 def set_room_data():
-    # while True:
-    #     code_list = generate_room_codes(4)
-    #     for code in code_list:
-    #         get_room_response(code)
+    while True:
+        code_list = generate_room_codes(4)
+        for code in code_list:
+            get_room_response(code)
 
     # while True:
     #     code_list = generate_room_codes(3)
@@ -134,14 +134,14 @@ def set_room_data():
     #         t.setDaemon(True)
     #         t.start()
 
-    while True:
-        code_list = generate_room_codes(4)
-        with ThreadPoolExecutor(max_workers=64) as executor:
-            futures = [executor.submit(get_room_response, code) for code in code_list]
-            try:
-                for future in as_completed(futures):
-                    future.result()
-            except KeyboardInterrupt as e:
-                raise
-                executor._threads.clear()
-                thread._threads_queues.clear()
+    # while True:
+    #     code_list = generate_room_codes(4)
+    #     with ThreadPoolExecutor(max_workers=64) as executor:
+    #         futures = [executor.submit(get_room_response, code) for code in code_list]
+    #         try:
+    #             for future in as_completed(futures):
+    #                 future.result()
+    #         except KeyboardInterrupt as e:
+    #             raise
+    #             executor._threads.clear()
+    #             thread._threads_queues.clear()
