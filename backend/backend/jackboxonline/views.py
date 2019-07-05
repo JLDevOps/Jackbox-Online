@@ -54,13 +54,13 @@ class Initiate(APIView):
     renderer_classes = (JSONRenderer, )
     permission_classes = (permissions.IsAdminUser,)
 
-    def get(self, request, format=None):
-        t = threading.Thread(target=set_room_data(), args=(), kwargs={})
-        t.setDaemon(True)
-        t.daemon = True
-        t.start()
-        t._stop()
-        return Response("Thread Done")
+    # def get(self, request, format=None):
+    #     t = threading.Thread(target=set_room_data(), args=(), kwargs={})
+    #     t.setDaemon(True)
+    #     t.daemon = True
+    #     t.start()
+    #     t._stop()
+    #     return Response("Thread Done")
 
 # class JackboxGame(APIView):
 #
