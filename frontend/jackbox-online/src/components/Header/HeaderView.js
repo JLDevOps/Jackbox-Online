@@ -23,7 +23,6 @@ import classNames from "classnames";
 
 import { Badge, Typography } from "../Wrappers";
 import Notification from "../Notification";
-import UserAvatar from "../UserAvatar";
 
 const messages = [
   {
@@ -190,7 +189,6 @@ const Header = ({ classes, isSidebarOpened, toggleSidebar, ...props }) => (
         {messages.map(message => (
           <MenuItem key={message.id} className={classes.messageNotification}>
             <div className={classes.messageNotificationSide}>
-              <UserAvatar color={message.variant} name={message.name} />
               <Typography size="sm" color="textSecondary">
                 {message.time}
               </Typography>
