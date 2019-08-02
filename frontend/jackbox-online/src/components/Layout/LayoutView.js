@@ -4,14 +4,10 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import classnames from 'classnames';
 
 import Header from '../Header';
-import Sidebar from '../Sidebar';
 
 // pages
 import Dashboard from '../../pages/dashboard';
-import Typography from '../../pages/typography';
-import Notifications from '../../pages/notifications';
 import Tables from '../../pages/tables';
-import Icons from '../../pages/icons';
 import Charts from '../../pages/charts';
 
 const Layout = ({ classes, isSidebarOpened, toggleSidebar }) => (
@@ -20,16 +16,12 @@ const Layout = ({ classes, isSidebarOpened, toggleSidebar }) => (
     <BrowserRouter>
       <React.Fragment>
         <Header />
-        <Sidebar />
         <div className={classnames(classes.content, { [classes.contentShift]: isSidebarOpened })}>
           <div className={classes.fakeToolbar} />
           <Switch>
             <Route path="/app/dashboard" component={Dashboard} />
-            <Route path="/app/typography" component={Typography} />
             <Route path="/app/tables" component={Tables} />
-            <Route path="/app/notifications" component={Notifications} />
             <Route exact path="/app/ui" render={() => <Redirect to="/app/ui/icons" />} />
-            <Route path="/app/ui/icons" component={Icons} />
             <Route path="/app/ui/charts" component={Charts} />
           </Switch>
         </div>
