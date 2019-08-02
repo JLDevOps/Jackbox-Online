@@ -1,5 +1,7 @@
 # Jackbox Online Backend
 
+API URL BASE: https://blobcast.jackboxgames.com/room/
+
 Current project is using:
 1. Django (Django-Rest)
 2. SqliteDb (Previously used Postgres)
