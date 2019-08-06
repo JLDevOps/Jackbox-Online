@@ -24,7 +24,7 @@ class App extends Component {
   async componentDidMount() {
       try {
         setInterval(async () => {
-          const res = await fetch('http://localhost:8000/api/v1/rooms/?online=Y');
+          const res = await fetch('http://localhost:8000/api/v1/rooms/?online=Y&ordering=-last_updated');
           const blocks = await res.json();
           console.log(blocks['results']);
           
@@ -39,7 +39,7 @@ class App extends Component {
       } catch (e) {
         console.log(e)
       }
-      // fetch('http://localhost:8000/api/v1/rooms/?online=Y')
+      // fetch('http://localhost:8000/api/v1/rooms/?online=Y&ordering=-last_updated')
       //     .then(res => res.json())
       //     .then((data) => {
       //         this.setState(

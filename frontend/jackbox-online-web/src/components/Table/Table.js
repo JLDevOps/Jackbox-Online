@@ -75,11 +75,10 @@ const DatatablePage = (room_data) => {
               searchLabel="Room"
               theadColor="purple"
               theadTextWhite
-              style={{ borderRadius: "30%"}} 
+              style={{ borderRadius: "30%",}} 
               entries={5}
               paginationLabel={[]}
               sortRows={["last_updated"]}
-            
             />
           </MDBCardBody>
       </MDBCard>
