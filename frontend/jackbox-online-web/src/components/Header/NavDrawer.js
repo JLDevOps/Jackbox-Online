@@ -13,6 +13,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import CancelOutlined from "@material-ui/icons/CancelOutlined";
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/styles';
+import  AboutDialog  from '../About/AboutDialog';
 
 
 const theme = createMuiTheme({
@@ -23,6 +24,11 @@ const theme = createMuiTheme({
         borderBottomColor: "purple"
       },
     },
+    MuiBackdrop: {
+      root: {
+        backgroundColor: "rgba(0, 0, 0, 0)",
+      },
+    }
   },
 });
 
@@ -34,8 +40,8 @@ export class NavDrawer extends React.Component {
         anchor="top"
         open={this.props.drawerOpened}
         onClose={this.props.toggleDrawer(false)}
-        variant="persistent"
         style={{borderColor: "purple"}}
+        variant="persistent"
       >
         <div
           onClick={this.props.toggleDrawer(false)}
@@ -58,9 +64,9 @@ export class NavDrawer extends React.Component {
                         </IconButton>
                     </Grid>
                     <Grid item>
-                        <Typography variant="h4" color="inherit" style={{ color: "white", fontWeight: "bold", fontFamily: 'Helvetica'}}>
+                      <Typography variant="h4" color="inherit" style={{ color: "white", fontWeight: "bold", fontFamily: 'Helvetica', letterSpacing: "-1.5px"}}>
                             jackbox.online
-                        </Typography>
+                      </Typography>
                     </Grid>
                     <Grid item>
                     </Grid>
@@ -76,10 +82,11 @@ export class NavDrawer extends React.Component {
                     <Grid item>
                     </Grid>
                     <Grid item>
-                      <MDBBtnGroup vertical alignItems="center">
-                        <Button variant="outlined" size="large" style={{backgroundColor: "white", borderRadius:"5%"}}>
-                          Medium
-                        </Button>
+                      <MDBBtnGroup vertical alignItems="center" style={{marginLeft: "65.50px"}}>
+                      <MDBBtn size="lg" color="white" href="https://jackbox.tv/" target="_blank" style={{backgroundColor: "white", borderRadius:"14px", width: "210px", margin: "10px auto", fontSize: "18px", fontWeight: "700"}}> 
+                        Jackbox.Tv
+                      </MDBBtn>
+                      <AboutDialog />
                       </MDBBtnGroup>
                     </Grid>
                     <Grid item>

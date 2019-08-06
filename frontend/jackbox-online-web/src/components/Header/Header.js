@@ -12,10 +12,12 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { MDBContainer } from 'mdbreact';
 import { Grid } from "@material-ui/core";
 // import logo from "../Image/jackbox-online-header.png";
-import logo from "../Image/jackbox-online-logo-white.svg";
+import logo from "../Image/jackbox-online-logo-white.png";
 // import logo from "../Image/jackbox-online-logo-white.png";
 import ReactSVG from 'react-svg';
 import { makeStyles } from '@material-ui/core/styles';
+import { ReactComponent as Logo } from '../Image/header.svg';
+
 
 
 const useStyles = makeStyles({
@@ -58,11 +60,9 @@ export function Header() {
                         </IconButton>
                     </Grid>
                     <Grid item>
-                      <logo />
-
-                        {/* <Typography variant="h4" color="inherit" align='center' style={{ fontWeight: "bold", fontFamily: 'Helvetica'}}>
+                        <Typography variant="h4" color="inherit" align='center' style={{ fontWeight: "bold", fontFamily: 'Helvetica', letterSpacing: "-1.5px"}}>
                             jackbox.online
-                        </Typography> */}
+                        </Typography>
                     </Grid>
                     <Grid item>
                     </Grid>
@@ -72,6 +72,7 @@ export function Header() {
         <NavDrawer
           drawerOpened={state.drawerOpened}
           toggleDrawer={toggleDrawer}
+          style={{ marginBottom: '20px'}}
         />
       </div>
     );

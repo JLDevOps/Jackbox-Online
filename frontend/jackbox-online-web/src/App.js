@@ -5,18 +5,6 @@ import JackboxGrid from './components/JackboxGrid/JackboxGrid';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-import { purple } from '@material-ui/core/colors/purple';
-// import Theme from './components/Theme/Theme';
-
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: purple
-//   },
-//   MuiAppBar: {
-//     primary: purple
-//   }
-// });
 
 class App extends Component {
 

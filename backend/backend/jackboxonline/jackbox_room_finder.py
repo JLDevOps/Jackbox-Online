@@ -55,12 +55,17 @@ def get_room_response(code):
             except Exception as e:
                 app_id = ''
 
+            try:
+                game_type = data['apptag']
+            except Exception as e:
+                game_type = ''
+
             online = 'Y'
 
             if JackboxRoom.objects.filter(room_code=str(code)).exists() is True:
                 room_data = JackboxRoom.objects.get(room_code=str(code))
                 room_data.server = str(server)
-                room_data.game_type = str(data['apptag'])
+                room_data.game_type = str(game_type)
                 room_data.app_id = str(app_id)
                 room_data.player_amount = data['numPlayers']
                 room_data.audience_amount = data['numAudience']

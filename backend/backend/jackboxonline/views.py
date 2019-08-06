@@ -28,9 +28,9 @@ class JackboxRoomView(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         response = super(JackboxRoomView, self).get(request, **kwargs)
-        response['Content-Range'] = '100'
-        response['X-Total-Count'] = '100'
-        response['Access-Control-Expose-Headers'] = 'X-Total-Count, Content-Range'
+        # response['Content-Range'] = '100'
+        # response['X-Total-Count'] = '100'
+        # response['Access-Control-Expose-Headers'] = 'X-Total-Count, Content-Range'
         return response
 
 
@@ -51,6 +51,8 @@ class JackboxRoomView(generics.ListAPIView):
         locked_status = self.request.query_params.get('locked', None)
         if locked_status is not None:
             queryset = queryset.filter(locked=locked_status)
+
+
         return queryset
 
 
