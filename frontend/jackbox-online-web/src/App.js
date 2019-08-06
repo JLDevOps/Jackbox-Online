@@ -22,13 +22,10 @@ class App extends Component {
 
   render() {
     return (
-      // <MuiThemeProvider theme={theme}>
-      <div styles="flexGrow: 1">
+      <div>
         <Header/>
-        <JackboxGrid room_data={this.state.room_data}/>
+        <JackboxGrid room_data={this.state.room_data} />
       </div>
-
-      // </MuiThemeProvider>)
     )
   }
 

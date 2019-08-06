@@ -12,7 +12,8 @@
     "react-dom": "^16.8.6",
     "react-iframe": "^1.8.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-svg": "^10.0.14"
   },
   "scripts": {
     "start": "react-scripts start",

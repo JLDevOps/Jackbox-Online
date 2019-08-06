@@ -12,23 +12,25 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { MDBContainer } from 'mdbreact';
 import { Grid } from "@material-ui/core";
 // import logo from "../Image/jackbox-online-header.png";
-import logo from "../Image/jackbox-online-logo-white.svg";
+import { ReactComponent as Logo } from "../Image/jackbox-online-logo-white.svg";
 // import logo from "../Image/jackbox-online-logo-white.png";
 import ReactSVG from 'react-svg';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-});
+// export class Header extends React.Component {
+  // const useStyles = makeStyles(theme => ({
+  //   root: {
+  //     display: 'flex',
+  //   },
+  //   appBar: {
+  //     zIndex: theme.zIndex.navdrawer + 1,
+  //   },
+  //   toolbar: theme.mixins.toolbar,
+  // }));
 
 export function Header() {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [state, setState] = React.useState({
     drawerOpened: false
   });
@@ -38,9 +40,10 @@ export function Header() {
       drawerOpened: booleanValue
     });
   };
+
     return (
       <div className="App">
-        <AppBar position="static" onClick={toggleDrawer(true)} style={{ backgroundColor: "purple"}}>
+        <AppBar position="relative" onClick={toggleDrawer(true)} style={{ backgroundColor: "purple", zIndex: "1"}} >
           <Toolbar>
               <Grid
               container
@@ -52,13 +55,16 @@ export function Header() {
                         <IconButton
                         color="inherit"
                         aria-label="Menu"
+                        // onClick={this.toggleDrawer(true)}
                         onClick={toggleDrawer(true)}
                         >
                             <MenuIcon fontSize="large" />
                         </IconButton>
                     </Grid>
                     <Grid item>
-                      <logo />
+                      <Logo />
+                      {/* <img src={'../Image/jackbox-online-logo-white.svg'} /> */}
+                      {/* <ReactSVG src="./Image/jackbox-online-logo-white.svg"/> */}
 
                         {/* <Typography variant="h4" color="inherit" align='center' style={{ fontWeight: "bold", fontFamily: 'Helvetica'}}>
                             jackbox.online
@@ -76,4 +82,3 @@ export function Header() {
       </div>
     );
   }
-
