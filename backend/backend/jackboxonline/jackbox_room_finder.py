@@ -60,6 +60,21 @@ def get_room_response(code):
             except Exception as e:
                 game_type = ''
 
+            try:
+                join_as = data['joinAs']
+            except Exception as e:
+                join_as = ''
+
+            try:
+                num_player = data['numPlayers']
+            except Exception as e:
+                num_player = 0
+
+            try:
+                num_audience = data['numAudience']
+            except Exception as e:
+                num_audience = 0
+
             online = 'Y'
 
             if JackboxRoom.objects.filter(room_code=str(code)).exists() is True:
@@ -67,19 +82,19 @@ def get_room_response(code):
                 room_data.server = str(server)
                 room_data.game_type = str(game_type)
                 room_data.app_id = str(app_id)
-                room_data.player_amount = data['numPlayers']
-                room_data.audience_amount = data['numAudience']
-                room_data.join_able = str(data['joinAs'])
+                room_data.player_amount = num_player
+                room_data.audience_amount = num_audience
+                room_data.join_able = str(join_as)
                 room_data.locked = str(locked)
-                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S'))
+                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC'))
                 room_data.online = online
                 room_data.save()
             else:
-                room_data = JackboxRoom(room_code=str(code), server=str(server), game_type=str(data['apptag']),
-                                        app_id=str(app_id), player_amount=data['numPlayers'],
-                                        audience_amount=data['numAudience'], join_able=str(data['joinAs']),
+                room_data = JackboxRoom(room_code=str(code), server=str(server), game_type=str(game_type),
+                                        app_id=str(app_id), player_amount=num_player,
+                                        audience_amount=num_audience, join_able=str(join_as),
                                         locked=str(locked),
-                                        last_updated=str(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')),
+                                        last_updated=str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC')),
                                         online=online)
                 room_data.save()
 
@@ -95,7 +110,7 @@ def get_room_response(code):
                 room_data.audience_amount = None
                 room_data.join_able = None
                 room_data.locked = None
-                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S'))
+                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC'))
                 room_data.online = online
                 room_data.save()
             else:
@@ -103,7 +118,7 @@ def get_room_response(code):
                                         app_id=None, player_amount=None,
                                         audience_amount=None, join_able=None,
                                         locked=None,
-                                        last_updated=str(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')),
+                                        last_updated=str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC')),
                                         online=online)
                 room_data.save()
 
