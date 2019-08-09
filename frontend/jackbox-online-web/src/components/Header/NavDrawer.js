@@ -63,7 +63,7 @@ export class NavDrawer extends React.Component {
                             <CancelIcon fontSize="large" style={{ color: 'white'}} />
                         </IconButton>
                     </Grid>
-                    <Grid item>
+                    <Grid item style={{marginRight: "65.50px"}}>
                       <Typography variant="h4" color="inherit" style={{ color: "white", fontWeight: "bold", fontFamily: 'Helvetica', letterSpacing: "-1.5px"}}>
                             jackbox.online
                       </Typography>
@@ -82,7 +82,7 @@ export class NavDrawer extends React.Component {
                     <Grid item>
                     </Grid>
                     <Grid item>
-                      <MDBBtnGroup vertical alignItems="center" style={{marginLeft: "65.50px"}}>
+                      <MDBBtnGroup vertical alignItems="center" >
                       <MDBBtn size="lg" color="white" href="https://jackbox.tv/" target="_blank" style={{backgroundColor: "white", borderRadius:"14px", width: "210px", margin: "10px auto", fontSize: "18px", fontWeight: "700"}}> 
                         Jackbox.Tv
                       </MDBBtn>

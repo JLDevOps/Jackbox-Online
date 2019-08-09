@@ -7,14 +7,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { NavDrawer } from "./NavDrawer";
 import { Grid } from "@material-ui/core";
 
-// const useStyles = makeStyles({
-//   list: {
-//     width: 250,
-//   },
-//   fullList: {
-//     width: 'auto',
-//   },
-// });
 
 export function Header() {
   // const classes = useStyles();
@@ -46,7 +38,7 @@ export function Header() {
                             <MenuIcon fontSize="large" />
                         </IconButton>
                     </Grid>
-                    <Grid item>
+                    <Grid item style={{marginRight: "65.50px"}}>
                         <Typography variant="h4" color="inherit" align='center' style={{ fontWeight: "bold", fontFamily: 'Helvetica', letterSpacing: "-1.5px"}}>
                             jackbox.online
                         </Typography>

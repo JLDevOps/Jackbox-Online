@@ -22,23 +22,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-      // try {
-      //   setInterval(async () => {
-      //     const res = await fetch('http://localhost:8000/api/v1/rooms/?online=Y&ordering=-last_updated');
-      //     const blocks = await res.json();
-      //     console.log(blocks['results']);
-          
-      //     this.setState(
-      //       { 
-      //         isLoading: true,
-      //         room_data: blocks['results']
-      //       }
-      //     )
-
-      //   }, 3000);
-      // } catch (e) {
-      //   console.log(e)
-      // }
+    // Initial fetch
       fetch('http://localhost:8000/api/v1/rooms/?online=Y&ordering=-last_updated')
           .then(res => res.json())
           .then((data) => {
@@ -50,6 +34,22 @@ class App extends Component {
               )
           })
           .catch(console.log)
+
+          try {
+            setInterval(async () => {
+              const res = await fetch('http://localhost:8000/api/v1/rooms/?online=Y&ordering=-last_updated');
+              const blocks = await res.json();              
+              this.setState(
+                { 
+                  isLoading: true,
+                  room_data: blocks['results']
+                }
+              )
+    
+            }, 1000);
+          } catch (e) {
+            console.log(e)
+          }
   }
 }
 

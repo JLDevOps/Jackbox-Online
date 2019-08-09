@@ -1,7 +1,5 @@
 import React from 'react';
-import { MDBDataTable, MDBTableHead } from 'mdbreact';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardHeader, MDBBtn, MDBContainer } from "mdbreact";
-
+import { MDBDataTable, MDBCard, MDBCardBody, MDBCardHeader, MDBContainer  } from 'mdbreact';
 
 const DatatablePage = (room_data) => {
     const data = {
@@ -9,17 +7,14 @@ const DatatablePage = (room_data) => {
         {
           label: 'ROOM',
           field: 'room_code',
-
         }, 
         {
           label: 'GAME TYPE',
           field: 'game_type',
-
         },
         {
           label: 'CURRENT # OF PLAYERS',
           field: 'player_amount',
-
         },
         {
           label: 'CURRENT # OF AUDIENCE',
@@ -59,7 +54,7 @@ const DatatablePage = (room_data) => {
     return (
       <MDBContainer>
         <MDBCard style={{ marginTop: "1rem" , marginBottom: "1rem"}} >
-          <MDBCardHeader color="purple" style={{ alignItems: "center" , textAlign: "center", fontSize: "18px", fontWeight: "700"}}>ROOM SERVERS</MDBCardHeader>
+          <MDBCardHeader color="purple" style={{ alignItems: "center" , textAlign: "center", fontSize: "18px", fontWeight: "700"}}><h4>ROOM SERVERS</h4></MDBCardHeader>
           <MDBCardBody>    
             <MDBDataTable
               striped

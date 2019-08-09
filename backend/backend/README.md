@@ -15,6 +15,10 @@ Current project is using:
 	```
 	python manage.py runserver
 	```
+3. Run the room finder:
+    ```
+    python manage.py start_room_finder
+    ```
 
 ### Migrate Any Setting Changes to the App
 1. Run the following command after making the change:
@@ -46,12 +50,14 @@ pass = (j)
 
 
 1. To view all the rooms
-	- localhost:8000/api/v1/jackboxrooms/
+	- localhost:8000/api/v1/rooms/
 2. To view only online rooms:
-	- localhost:8000/api/v1/jackboxrooms/?online=Y
+	- localhost:8000/api/v1/rooms/?online=Y
 3. To view selected fields:
-	- localhost:8000/api/v1/jackboxrooms/?fields=room_code
-4. To start the Jackbox.TV API for the Db
+	- localhost:8000/api/v1/rooms/?fields=room_code
+4. Ordering of Field:
+	- localhost:8000/api/v1/rooms/?ordering=last_updated
+5. To start the Jackbox.TV API for the Db
 	- localhost:8000/api/v1/initiate
 
 ## Requirements

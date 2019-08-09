@@ -86,7 +86,7 @@ def get_room_response(code):
                 room_data.audience_amount = num_audience
                 room_data.join_able = str(join_as)
                 room_data.locked = str(locked)
-                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC'))
+                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S%Z'))
                 room_data.online = online
                 room_data.save()
             else:
@@ -94,7 +94,7 @@ def get_room_response(code):
                                         app_id=str(app_id), player_amount=num_player,
                                         audience_amount=num_audience, join_able=str(join_as),
                                         locked=str(locked),
-                                        last_updated=str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC')),
+                                        last_updated=str(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S%Z')),
                                         online=online)
                 room_data.save()
 
@@ -110,7 +110,7 @@ def get_room_response(code):
                 room_data.audience_amount = None
                 room_data.join_able = None
                 room_data.locked = None
-                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC'))
+                room_data.last_updated = str(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S%Z'))
                 room_data.online = online
                 room_data.save()
             else:
@@ -118,7 +118,7 @@ def get_room_response(code):
                                         app_id=None, player_amount=None,
                                         audience_amount=None, join_able=None,
                                         locked=None,
-                                        last_updated=str(datetime.datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC')),
+                                        last_updated=str(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S%Z')),
                                         online=online)
                 room_data.save()
 
@@ -135,7 +135,6 @@ def spawn_room_thread(letter, code_list):
                 future.result()
         except KeyboardInterrupt as e:
             raise
-
 
 def set_room_data():
     while True:

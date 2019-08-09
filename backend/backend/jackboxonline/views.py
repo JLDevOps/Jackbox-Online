@@ -60,16 +60,14 @@ class Initiate(APIView):
     renderer_classes = (JSONRenderer, )
     permission_classes = (permissions.IsAdminUser,)
 
-    # def get(self, request, *args, **kwargs):
-    #     response = super(JackboxRoomView, self).dispatch(request, *args, **kwargs)
-    #     response.headers['X-Total-Count'] = '100'
-    #     response.headers['Access-Control-Expose-Headers'] = 'X-Total-Count'
-    #     return response
-
-    # def get(self, request, *args, **kwargs):
-    #     response = super(APIView, self).get(request, *args, **kwargs)
-    #     response.headers['X-TOTAL-COUNT'] = '100'
-    #     return response
+    # Multithreading GET for view URL
+    def get(self, request, format=None):
+        t = threading.Thread(target=set_room_data(), args=(), kwargs={})
+        t.setDaemon(True)
+        t.daemon = True
+        t.start()
+        t._stop()
+        return Response("Thread Done")
 
     # def get(self, request, format=None):
     #     t = threading.Thread(target=set_room_data(), args=(), kwargs={})
