@@ -24,7 +24,7 @@ SECRET_KEY = 'e4b)$4_3=&+hgo&^)*8q!ni0%u(k)nf7$2pc0weoa35t*w07dw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'jackbox-online.herokuapp.com', 'jackbox.online']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'jackbox-online.herokuapp.com', 'jackbox.online', '*']
 
 # Application definition
 
