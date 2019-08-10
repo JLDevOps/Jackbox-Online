@@ -20,4 +20,5 @@ sqlparse==0.3.0
 urllib3==1.25.3
 websocket-client==0.56.0
 gunicorn==19.7.1
+django-heroku==0.3.1
 
