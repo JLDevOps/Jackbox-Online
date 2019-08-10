@@ -1,61 +1,68 @@
-# Jackbox.online
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Frontend
-### Running the Different Frontend Platorms:
-        * change directory to your new project
-        $ cd jackboxOnline
+## Available Scripts
 
-        $ Then run the these commands to get started:
+In the project directory, you can run:
 
-        * To run development Web server
-        $ npm run web
+### `npm start`
 
-        * To run Android on connected device (after installing Android Debug Bridge "adb" - https://developer.android.com/studio/releases/platform-tools)
-        $ npm run android
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-        * To run ios simulator (after installing Xcode - only on Apple devices)
-        $ npm run ios
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-        * To run tests for Native and Web
-        $ npm run test
+### `npm test`
 
-        * To run build for Web
-        $ npm run build
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `npm run build`
 
-## Backend
-### Running the Django Application
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-1. Go into the Python backend folder of the project.
-2. Run the following:
-	```
-	python manage.py runserver
-	```
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### To Delete All the Data in a DB
-1. Go into the Python backend folder.
-2. Run the following:
-	```
-	python manage.py clear_models
-	```
+### `npm run eject`
 
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-### API Endpoints:
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-1. To view all the rooms
-	- localhost:8080/api/v1/jackboxrooms/
-2. To view only online rooms:
-	- localhost:8080/api/v1/jackboxrooms/?online=Y
-3. To view selected fields:
-	- localhost:8080/api/v1/jackboxrooms/?fields=room_code
-4. To start the Jackbox.TV API for the Db
-	- localhost:8080/api/v1/initiate
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+## Learn More
 
-DB Information:
-Postgres:
-username: postgres
-pass: normal 
-port: 5432
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
