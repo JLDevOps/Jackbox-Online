@@ -21,17 +21,11 @@ from jackboxonline import views
 import uuid
 
 base_api_endpoint = 'api/v1/rooms/'
-# router = routers.DefaultRouter()
-# router.register(r'jackboxrooms', views.JackboxRoomView, 'jackboxroom')
 admin_url = uuid.uuid4().hex + '/admin/'
 print(admin_url)
 
 urlpatterns = [
     path(admin_url, admin.site.urls),
-    # path(base_api_endpoint, include(router.urls)),
     path(base_api_endpoint, views.JackboxRoomView.as_view()),
-    url(base_api_endpoint + 'initiate/', views.Initiate.as_view()),
-
-    # url(base_api_endpoint + 'game/', views.JackboxGame.as_view()),
 ]
 

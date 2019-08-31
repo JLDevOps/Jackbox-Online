@@ -25,7 +25,7 @@ SECRET_KEY = 'e4b)$4_3=&+hgo&^)*8q!ni0%u(k)nf7$2pc0weoa35t*w07dw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'jackbox-online.herokuapp.com', 'jackbox.online', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*', ]
 
 # Application definition
 
@@ -84,19 +84,6 @@ DATABASES = {
     }
 }
 
-# For Postgres Configuration
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'jackboxOnline',
-#         'USER': 'jackboxOnlineDbUser',
-#         'PASSWORD': 'jkwasshot',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -152,14 +139,3 @@ REST_FRAMEWORK = {
     )
 }
 
-# Configure app for Heroku deployment
-django_heroku.settings(locals())
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
-STATIC_URL = '/public/'
-# Place static in the same location as webpack build files
-STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
-STATICFILES_DIRS = []
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

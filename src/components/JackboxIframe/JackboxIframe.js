@@ -21,19 +21,10 @@ export default function JackboxIframe() {
   return (
     <MDBContainer style={{ boxShadow: "none"}}>
         <MDBCard style={{ marginTop: "1rem" , marginBottom: "1rem", borderRadius: "5%"}} >
-          {/* <MDBCardHeader color="purple" tag="h4" style={{ alignItems: "center" , textAlign: "center", fontWeight: "bold"}}>ROOM SERVERS</MDBCardHeader> */}
             <MDBCardBody>
               <Iframe url="https://jackbox.tv/" className={classes.iframe}/> 
             </MDBCardBody>
           </MDBCard>
     </MDBContainer>
-
-
-
-      // <div className={classes.root}>
-      //   <Paper className={classes.paper}>
-      //     <Iframe url="https://jackbox.tv/" className={classes.iframe}/>
-      //   </Paper>
-      // </div>
   );
 }
