@@ -3,7 +3,7 @@
 
 This is a service that provides an updated list of online Jackbox.TV rooms (similar to a server list for multiplayer games). You can filter the table to find various game types and join able games.
 
-You can find a deployed version [here](http://jackbox.online/).
+You can find a deployed version [here](https://jackbox-online.herokuapp.com/).
 
 ![](jackbox-online.gif)
 
